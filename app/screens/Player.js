@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { commonStyles } from '../../styles/CommonStyles';
 
-const AudioList = () => {
+const Player = () => {
     return(
         <View style={commonStyles.container}>
-            <Text>Audio List</Text>
+            <Text>Player</Text>
         </View>
     )
 }
 
-export default AudioList;
+export default Player;
