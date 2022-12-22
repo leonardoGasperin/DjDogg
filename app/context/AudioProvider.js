@@ -1,17 +1,16 @@
 import React, { Component, createContext } from 'react';
-import { Alert} from 'react-native';
+import { Alert } from 'react-native';
 import * as MediaLibrary from 'expo-media-library';
 
 export const audioContext = createContext();
 
 export class AudioProvider extends Component() {
-  
     constructor(props) {
         super(props);
         this.state = {
-            audioFiles: []
-        }
-    }
+          audioFiles: []
+        };
+      }
 
     permissionAlert = () => {
         Alert.alert("Permission required", "Permission needed to access files", [{
@@ -43,7 +42,6 @@ export class AudioProvider extends Component() {
 
         if(permission.granted){
             this.getAudioFiles()
-
         }
         if(!permission.granted && permission.canAskAgain){
             const {status, canAskAgain} = await MediaLibrary.requestPermissionsAsync();
@@ -54,11 +52,9 @@ export class AudioProvider extends Component() {
                 this.getAudioFiles()
             }
             if(status === 'denied' && !canAskAgain){
-                ///TODO
-                 ///display a error
+                this.setState({ ...this.state, permissionError: true });
             }
         }
-
     }
 
     componentDidMount(){
