@@ -4,7 +4,7 @@ import * as MediaLibrary from 'expo-media-library';
 
 export const audioContext = createContext();
 
-export class AudioProvider extends Component() {
+export class AudioProvider extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,7 +32,6 @@ export class AudioProvider extends Component() {
             mediaType: 'audio',
             first: media.totalCount
         })
-        console.log(media)
         this.totalCount = media.totalCount
         this.setState({...this.state, audioFiles: media.assets})
     }
@@ -48,7 +47,7 @@ export class AudioProvider extends Component() {
             if(status === 'denied' && canAskAgain){
                  this.permissionAlert()
             }
-            if(status === 'granted'){
+            if(status === 'granted'){   
                 this.getAudioFiles()
             }
             if(status === 'denied' && !canAskAgain){
@@ -63,7 +62,7 @@ export class AudioProvider extends Component() {
 
     render(){
         return (
-            <audioContext.Provider value={{audioFiles: this.audioFiles}}>
+            <audioContext.Provider value={{audioFiles: this.state.audioFiles}}>
                 {this.props.children}
             </audioContext.Provider>
         );        

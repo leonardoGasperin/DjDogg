@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, SafeAreaView, ScrollView } from 'react-native';
-import { commonStyles } from '../../styles/CommonStyles';
 import { audioContext } from '../context/AudioProvider';
 
 export class AudioList extends Component{
