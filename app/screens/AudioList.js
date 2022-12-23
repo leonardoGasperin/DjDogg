@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Dimensions } from 'react-native';
 import { AudioContext } from '../context/AudioProvider';
 import { RecyclerListView, LayoutProvider } from 'recyclerlistview'
-
+import { commonStyles } from '../../styles/CommonStyles';
 
 export class AudioList extends Component{
     static contextType = AudioContext
@@ -26,16 +26,16 @@ export class AudioList extends Component{
         return(
             <AudioContext.Consumer>
                 {({ dataProvider }) => {
-                    return (
-                        <View style={{flex: 1}}>
-                            <RecyclerListView
-                                dataProvider={dataProvider}
-                                layoutProvider={this.layoutProvider}
-                                rowRenderer={this.rowRenderer}
-                            />
-                        </View>
-                    )
-                }}
+                        return (
+                            <View style={{flex: 1}}>
+                                <RecyclerListView
+                                    dataProvider={dataProvider}
+                                    layoutProvider={this.layoutProvider}
+                                    rowRenderer={this.rowRenderer}
+                                />
+                            </View>
+                        )
+                    }}
             </AudioContext.Consumer>
         )
     }

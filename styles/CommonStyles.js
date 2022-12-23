@@ -6,4 +6,9 @@ export const commonStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    audioListSeparator: {
+        borderBottomWidth: 1,
+        borderRadius: 1,
+        borderBottomColor: 'indigo'
+    }
 })
