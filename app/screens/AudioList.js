@@ -3,6 +3,7 @@ import { Text, View, Dimensions } from 'react-native';
 import { AudioContext } from '../context/AudioProvider';
 import { RecyclerListView, LayoutProvider } from 'recyclerlistview'
 import { commonStyles } from '../../styles/CommonStyles';
+import AudioItem from '../components/AudioItem';
 
 export class AudioList extends Component{
     static contextType = AudioContext
@@ -20,7 +21,7 @@ export class AudioList extends Component{
     })
 
     rowRenderer = (type, item) => {
-        return <Text>{item.filename}</Text>
+        return <AudioItem title={item.filename} duration={item.duration}/>
     }
     render(){
         return(

@@ -5,12 +5,10 @@ import AppNavigation from './app/navigation/AppNavigator';
 
 export default function App(){
   return(
-    <>
-    <AudioProvider>
-      <NavigationContainer>
-        <AppNavigation/>
-      </NavigationContainer>
-    </AudioProvider>
-    </>
+      <AudioProvider>
+        <NavigationContainer>
+          <AppNavigation/>
+        </NavigationContainer>
+      </AudioProvider>
     )
 }
