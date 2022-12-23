@@ -1,14 +1,18 @@
 import React, { Component, createContext } from 'react';
-import { Alert } from 'react-native';
+import { Text, View, Alert } from 'react-native';
 import * as MediaLibrary from 'expo-media-library';
+import { DataProvider } from 'recyclerlistview';
+import { commonStyles } from '../../styles/CommonStyles';
 
-export const audioContext = createContext();
+export const AudioContext = createContext();
 
 export class AudioProvider extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          audioFiles: []
+          audioFiles: [],
+          permissionError: false,
+          dataProvider: new DataProvider((r1, r2) => r1 !== r2),
         };
       }
 
@@ -24,6 +28,7 @@ export class AudioProvider extends Component {
     }
 
     getAudioFiles = async () => {
+        const { dataProvider, audioFiles } = this.state
         let media = await MediaLibrary.getAssetsAsync({
             mediaType: 'audio'
         })
@@ -32,8 +37,14 @@ export class AudioProvider extends Component {
             mediaType: 'audio',
             first: media.totalCount
         })
-        this.totalCount = media.totalCount
-        this.setState({...this.state, audioFiles: media.assets})
+        this.setState({
+            ...this.state,
+            dataProvider: dataProvider.cloneWithRows([
+              ...audioFiles,
+              ...media.assets,
+            ]),
+            audioFiles: [...audioFiles, ...media.assets],
+          })
     }
 
     getPermission = async () => {
@@ -42,6 +53,11 @@ export class AudioProvider extends Component {
         if(permission.granted){
             this.getAudioFiles()
         }
+        
+        if(!permission.canAskAgain && !permission.granted){
+            this.setState({ ...this.state, permissionError: true });
+        }
+
         if(!permission.granted && permission.canAskAgain){
             const {status, canAskAgain} = await MediaLibrary.requestPermissionsAsync();
             if(status === 'denied' && canAskAgain){
@@ -61,10 +77,16 @@ export class AudioProvider extends Component {
     }
 
     render(){
+        const {audioFiles, dataProvider, permissionError} = this.state
+        if(permissionError) return <View style={commonStyles.container}>
+            <Text style={{fontSize: 20, color: 'red'}}>Permissions denied, please go to app configuration and give permission</Text>
+        </View>
+
+
         return (
-            <audioContext.Provider value={{audioFiles: this.state.audioFiles}}>
+            <AudioContext.Provider value={{audioFiles: audioFiles, dataProvider}}>
                 {this.props.children}
-            </audioContext.Provider>
+            </AudioContext.Provider>
         );        
     }
 }
