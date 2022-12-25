@@ -57,3 +57,23 @@ export const audioItemStyle = StyleSheet.create({
         alignSelf: 'center',
     }
 })
+
+export const modalStyle = StyleSheet.create({
+    container: {
+        position: 'absolute',
+        height: '15%',
+        bottom: 0,
+        right: 0,
+        left: 0,
+        borderTopEndRadius: 17,
+        borderTopStartRadius: 17,
+        backgroundColor: '#333'
+    },
+    modalContainer:{
+        padding: 17
+    },
+    optionText:{
+        paddingVertical: 10,
+        letterSpacing: 1
+    }
+})
